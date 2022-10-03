@@ -14,8 +14,9 @@ function App() {
    <>
        
         <Routes>
-          <Route path="/inpiration" element={<RequiredAuth><Home /></RequiredAuth>}></Route>
-          <Route path="/" element={<Login/>}></Route>
+          <Route path="/job_post" element={<RequiredAuth><Home /></RequiredAuth>}></Route>
+          <Route path="/" element={<Navigate replace to ="/login"/>}></Route>
+          <Route path="/login" element={<Login/>}></Route>
           <Route path="/pre" element={<RequiredAuth><Nomore/></RequiredAuth>}></Route>
         </Routes>
     </>
@@ -31,7 +32,7 @@ function RequiredAuth({children}){
  const Home = () => {
   
    const [user, setuserData] = useState();
-   fetch("http://localhost:4000/inpiration").then(data=>data.json()).then(data=>setuserData(data))
+   fetch("https://capstonebackend--q.herokuapp.com/jobs_post").then(data=>data.json()).then(data=>setuserData(data))
    const chartdata ={
     labels:user?.map(d=>d.year),
     datasets:[{

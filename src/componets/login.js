@@ -19,7 +19,7 @@ export function Login() {
         email,
         password,
       };
-      fetch("http://localhost:4000/", {
+      fetch("https://capstonebackend--q.herokuapp.com/Login", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -32,7 +32,7 @@ export function Login() {
 
           localStorage.setItem("token", data.token);
          
-          navigate("/inpiration");
+          navigate("/job_post");
 
         }
       });

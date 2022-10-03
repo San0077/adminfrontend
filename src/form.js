@@ -24,22 +24,22 @@ const Forms = () => {
   };
   const obj =[];
 const formValid =yup.object({
-  names:yup.string().required("required").min(5),
-  numbers:yup.number().required("required").min(4,(true)),
-  email:yup.string().email().required("required"),
-  phone: yup.number().required("required").positive().integer(),
-  radio:yup.string().required("required"),
-  age:yup.number().required("required"),
+  special:yup.string().required("required"),
+  company:yup.string().required("required"),
+  location: yup.string().required("required"),
+  mode:yup.string().required("required"),
+  img:yup.string().required("required"),
+  
 
 })
 const form = useFormik({
-    initialValues:{names:"",radio:"",numbers:"",phone:"",age:"",email:""},
+    initialValues:{special:"",company:"",location:"",mode:"",img:""},
     validationSchema:formValid,
     
     onSubmit:(values,{resetForm})=>{
         setdata(data=>[...data,values])
-      
-        fetch("http://localhost:4000/inpiration", {
+       console.log(values)
+        fetch("https://capstonebackend--q.herokuapp.com/jobs_post", {
           method: "POST",
           body: JSON.stringify(values),
           headers: {
@@ -56,94 +56,76 @@ const form = useFormik({
     <form onSubmit={form.handleSubmit}>
     <div className="forms">
          
-      <p className="alerts text-center">Alerts</p>
+      <p className="alerts text-center">jobs post</p>
      
         
       <TextField
         style={{ width: "200px" }}
         id="outlined-basic"
-        label="Names"
+        label="special"
         variant="outlined"
-        name="names"
+        name="special"
          onChange={form.handleChange}
          onBlur={form.handleBlur}
-         value={form.values.names}
-        error={form.errors.names&&form.touched.names?true:false}
+         value={form.values.special}
+        error={form.errors.special&&form.touched.special?true:false}
+      />
+       <TextField
+        style={{ width: "200px" }}
+        id="outlined-basic"
+        label="image"
+        variant="outlined"
+        name="img"
+         onChange={form.handleChange}
+         onBlur={form.handleBlur}
+         value={form.values.img}
+        error={form.errors.img&&form.touched.img?true:false}
       />
       <TextField
         style={{ width: "200px" }}
         id="outlined-basic"
-        label="values"
+        label="company"
         variant="outlined"
-        name="numbers"
+        name="company"
         onChange={form.handleChange}
         onBlur={form.handleBlur}
-         value={form.values.numbers}
-        error={form.errors.numbers&&form.touched.numbers?true:false}
+         value={form.values.company}
+        error={form.errors.company&&form.touched.company?true:false}
       />
+   
       <TextField
         style={{ width: "200px" }}
         id="outlined-basic"
-        label="Email"
+        label="location"
         variant="outlined"
-        name="email"
+        name="location"
         onChange={form.handleChange}
         onBlur={form.handleBlur}
-         value={form.values.email}
-        error={form.errors.email&&form.touched.email?true:false}
+        value={form.values.location}
+       error={form.errors.location&&form.touched.location?true:false}
       />
-      <TextField
-        style={{ width: "200px" }}
-        id="outlined-basic"
-        label="phone"
-        variant="outlined"
-        name="phone"
-        onChange={form.handleChange}
-        onBlur={form.handleBlur}
-        value={form.values.phone}
-       error={form.errors.phone&&form.touched.phone?true:false}
-      />
-      <InputLabel id="demo-select-small" >Days</InputLabel>
+      <InputLabel id="demo-select-small" >mode</InputLabel>
       <Select  style={{ width: "200px" }}
         labelId="demo-select-small"
         id="demo-select-small"
         value={days}
-        label="Age"
-        name="age"
+        label="mode"
+        name="mode"
         onChange={form.handleChange}
         onBlur={form.handleBlur}
         
-      error={form.errors.age&&form.touched.age?true:false}
+      error={form.errors.mode&&form.touched.mode?true:false}
       >
-        <MenuItem name="age" value={form.values.age}>
+        <MenuItem name="mode" value={form.values.mode}>
           <em>None</em>
         </MenuItem>
-        <MenuItem value={10}>10</MenuItem>
-        <MenuItem value={20}>20</MenuItem>
-        <MenuItem value={30}>30</MenuItem>
-        <MenuItem value={40}>40</MenuItem>
-        <MenuItem value={50}>50</MenuItem>
-        <MenuItem value={60}>60</MenuItem>
-        <MenuItem value={70}>70</MenuItem>
-        <MenuItem value={80}>80</MenuItem>
-        <MenuItem value={90}>90</MenuItem>
-        <MenuItem value={100}>100</MenuItem>
-      </Select>
-      <FormLabel id="demo-row-radio-buttons-group-label">gt&lt</FormLabel>
-      <RadioGroup
-        row
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group"
-        
-      >
-        <FormControlLabel value="grater" name="radio" onChange={form.handleChange}
-        onBlur={form.handleBlur} control={<Radio />} label="Greater" />
-
-        <FormControlLabel value="lesser" name="radio" onChange={form.handleChange}
-        onBlur={form.handleBlur} control={<Radio />} label="Lesser" />
+        <MenuItem value="Remote">Remote</MenuItem>
+        <MenuItem value="Full time">Full time</MenuItem>
+        <MenuItem value="Part time">Part time</MenuItem>
        
-      </RadioGroup>
-      <div style={{fontWeight:"bold",color:"red"}}>{form.errors.radio&&form.touched.radio?"click any one":""}</div>
+       
+      </Select>
+      
       <Button variant="contained" type="submit" >Submit</Button>
       
     </div>

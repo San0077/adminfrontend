@@ -8,7 +8,7 @@ export const NavBar = () => {
   
   const login = ()=>{
         localStorage.removeItem("token")
-        navigate("/")
+        navigate("/login")
     }
   return (
     <>
@@ -17,7 +17,7 @@ export const NavBar = () => {
 
         <ul className="nav-links">
           <NavLink
-            to="/inpiration"
+            to="/job_post"
             className={({ isActive }) => "home" + (isActive ? " active" : "")}
           >
             <li><span style={{marginRight:"10px"}}><i class="fa fa-dashcube" aria-hidden="true"></i></span>DashBoard</li>
